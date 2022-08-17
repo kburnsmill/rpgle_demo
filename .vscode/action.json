@@ -1,11 +1,29 @@
 [
     {
-        "name": "Deploy and build ",
+        "name": "Compile with CRTBNDRPG :hammer:",
+        "command": "CRTBNDRPG PGM(&CURLIB/&NAME) SRCSTMF('&RELATIVEPATH') OPTION(*EVENTF) DBGVIEW(*SOURCE) TGTRLS(*CURRENT) TGTCCSID(*JOB)",
+        "environment": "ile",
+        "deployFirst": true,
+        "extensions": [
+            "RPGLE"
+        ]
+    },
+    {
+        "name": "Build and deploy with make :hammer:",
+        "command": "/QOpenSys/pkgs/bin/gmake BIN_LIB=&CURLIB OPT=*EVENTF",
         "environment": "pase",
-                "extension": [
+        "deployFirst": true,
+        "extensions": [
+            "GLOBAL"
+        ]
+    },
+    {
+        "name": "Deploy & build with bob :hammer:",
+        "command": "OPT=*EVENTF BUILDLIB=&CURLIB /QOpenSys/pkgs/bin/makei build",
+        "extensions": [
             "GLOBAL"
         ],
-        "deployFirst": true,
-        "command": "QOpenSys/pkgs/bin/gmake BIN_LIB=&CURLIB OPTS=*EVENTF"
+        "environment": "pase",
+        "deployFirst": true
     }
 ]

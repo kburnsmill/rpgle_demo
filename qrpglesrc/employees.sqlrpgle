@@ -5,11 +5,11 @@ Dcl-Pi EMPLOYEES;
   DEPTNO Char(3);
 End-Pi;
 
-      //---------------------------------------------------------------*
+// ---------------------------------------------------------------*
 
 /copy 'constants.rpgleinc'
 
-      //---------------------------------------------------------------*
+// ---------------------------------------------------------------*
 
 Dcl-F emps WORKSTN Sfile(SFLDta:Rrn) IndDS(WkStnInd) InfDS(fileinfo);
 
@@ -35,14 +35,14 @@ Dcl-DS FILEINFO;
   FUNKEY         Char(1)    Pos(369);
 End-DS;
 
-      //---------------------------------------------------------------*
-      //
+// ---------------------------------------------------------------*
+
 Dcl-S Index Int(5);
 
 Dcl-Ds Employee ExtName('SAMPLE/EMPLOYEE') Alias Qualified;
 End-Ds;
 
-        //------------------------------------------------------------reb04
+// ------------------------------------------------------------reb04
 Exit = *Off;
 LoadSubfile();
 
@@ -61,7 +61,7 @@ Enddo;
 *INLR = *ON;
 Return;
 
-        //------------------------------------------------------------
+// ------------------------------------------------------------
 
 Dcl-Proc ClearSubfile;
   SflDspCtl = *Off;
@@ -71,7 +71,7 @@ Dcl-Proc ClearSubfile;
 
   SflDspCtl = *On;
 
-  rrn = 0;
+  Rrn = 0;
 End-Proc;
 
 Dcl-Proc LoadSubfile;
@@ -104,7 +104,7 @@ Dcl-Proc LoadSubfile;
                          + %TrimR(Employee.FIRSTNME);
         XJOB  = Employee.JOB;
 
-        rrn += 1;
+        Rrn += 1;
         Write SFLDTA;
       endif;
     enddo;
@@ -113,7 +113,7 @@ Dcl-Proc LoadSubfile;
 
   EXEC SQL CLOSE empCur;
 
-  If (rrn > 0);
+  If (Rrn > 0);
     SflDsp = *On;
     SFLRRN = 1;
   Endif;
@@ -138,7 +138,7 @@ Dcl-Proc HandleInputs;
     If (XSEL <> *Blank);
       XSEL = *Blank;
       Update SFLDTA;
-      SFLRRN = rrn;
+      SFLRRN = Rrn;
     Endif;
   Enddo;
 End-Proc;
